@@ -1,0 +1,12 @@
+{% extends "base.html" %}
+{% block title %} Lista de Veiculo {% endblock %}
+<br/>
+{% block content %}
+{% load resources_extras %}
+
+    <h1> Veiculos Disponíveis </h1>
+    {%for item in lista_veiculos %}
+         <p> {{ item.name | replace:" Bala"}} </p>
+    {%endfor %}
+{% endblock %}
+<ul>

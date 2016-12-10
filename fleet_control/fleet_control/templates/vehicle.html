@@ -1,0 +1,15 @@
+{% extends "base.html" %}
+{% block title %} Lista de Veiculo {% endblock %}
+<br/>
+{% block content %}
+{% load resources_extras %}
+{% load vehicle_tags %}
+    {% get_vehicle 1 as vehicle_list %}
+    {% for item in vehicle_list %}
+        <p> {{ item.name | add_label:'Nome' }}<br>
+            {{ item.license_plate | add_label:'Placa' }}<br>
+            {{ item.manufacture_year | date:'Y' | add_label:'Ano' }}
+        </p>
+
+    {% endfor %}
+{% endblock %}

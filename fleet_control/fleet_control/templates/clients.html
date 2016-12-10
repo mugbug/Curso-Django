@@ -1,0 +1,11 @@
+{% extends "base.html" %}
+{% block title %} Lista de Clientes {% endblock %}
+<br/>
+{% block content %}
+{% load resources_extras %}
+    <h1> Lista de Clientes </h1>
+    {%for item in list_client %}
+         <p> {{ item | add_label:'Name'}} </p>
+    {%endfor %}
+{% endblock %}
+<ul>
