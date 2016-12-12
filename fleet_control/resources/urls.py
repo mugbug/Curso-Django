@@ -4,7 +4,8 @@ from .views import *
 
 urlpatterns = [
     url(r'clients$', get_clients),
-    url(r'vehicles$', vehicle_view),
+    # list vehicles
+    url(r'vehicles$', VehicleListView.as_view(), name='vehicle_list'),
     url(r'usecontrol_add$', usecontrol_add),
     url(r'usecontrol_list$', UseControlView.as_view()),
     # redirect views
@@ -19,5 +20,5 @@ urlpatterns = [
     url(r'vehicle/(?P<pk>\d+)/delete$', VehicleDelete.as_view(), \
                                                 name='vehicle_delete'),
     # default page for resources
-    url(r'$', index, name='vehicle_list'),
+    url(r'$', index, name='resources_default'),
 ]

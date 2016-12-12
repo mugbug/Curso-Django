@@ -1,7 +1,7 @@
 from django.shortcuts import render
 from django.http import HttpResponse
 from django.views.generic.base import TemplateView, RedirectView
-from django.views.generic import DetailView, ListView
+from django.views.generic import DetailView, ListView, ListView
 from django.views.generic.edit import CreateView, UpdateView, DeleteView
 from django.shortcuts import get_object_or_404
 from django.core.urlresolvers import reverse_lazy
@@ -94,19 +94,26 @@ class VehicleDetailView(DetailView):
 
 class VehicleCreate(CreateView):
     model = Vehicle
-    success_url = reverse_lazy('vehicle_add')
+    success_url = reverse_lazy('vehicle_list')
     template_name = 'vehicle_form.html'
     fields = ['name', 'description', 'license_plate', 'vendor']
 
 
 class VehicleUpdate(UpdateView):
     model = Vehicle
-    success_url = reverse_lazy('vehicle_add')
+    success_url = reverse_lazy('vehicle_list')
     template_name = 'vehicle_form.html'
     fields = ['name', 'description', 'license_plate', 'vendor']
 
 
 class VehicleDelete(DeleteView):
     model = Vehicle
-    success_url = reverse_lazy('vehicle_add')
+    success_url = reverse_lazy('vehicle_list')
     template_name = 'vehicle_confirm_delete.html'
+
+
+class VehicleListView(ListView):
+    model = Vehicle
+    template_name = 'vehicle_list.html'
+    queryset = Vehicle.objects.order_by('name')
+    context_object_name = 'vehicle_list'

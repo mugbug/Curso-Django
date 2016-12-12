@@ -1,9 +1,10 @@
 {% extends "base.html" %}
 {% block title %} Detalhes do Veiculo {% endblock %}
 {% block content %}
+{% load resources_extras %}
   <h1>{{ object.name }}</h1>
-  <p>{{ object.description }}</p>
-  <p>{{ object.license_plate }}</p>
-  <p>{{ object.manufacture_year | date:"Y"}}</p>
-  <p>{{ object.manufacturer }}</p>
+  <p>{{ object.description | add_label:'Descrição' }}</p>
+  <p>{{ object.license_plate | add_label:'Placa' }}</p>
+  <p>{{ object.manufacture_year | date:"Y" | add_label:'Ano' }}</p>
+  <p>{{ object.manufacturer | add_label:'Fabricante' }}</p>
 {% endblock %}
