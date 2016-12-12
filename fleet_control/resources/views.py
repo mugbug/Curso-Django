@@ -1,5 +1,11 @@
 from django.shortcuts import render
 from django.http import HttpResponse
+from django.views.generic.base import TemplateView, RedirectView
+from django.views.generic import DetailView, ListView
+from django.views.generic.edit import CreateView, UpdateView, DeleteView
+from django.shortcuts import get_object_or_404
+from django.core.urlresolvers import reverse_lazy
+
 from resources.models import Vehicle, Driver, UseControl
 
 class Veiculo(object):
@@ -44,14 +50,63 @@ def usecontrol_add(request):
     usecontrol.driver = driver
     usecontrol.vehicle = vehicle
     usecontrol.save()
-    
+
     return render(request, 'usecontrol_list.html')
 
-def usecontrol_list(request):
-    usecontrol = UseControl.objects.all()[0]
-    data = {
-        'vehicle': usecontrol.vehicle.name,
-        'driver': usecontrol.driver.name,
-        'date_started': usecontrol.date_started,
-    }
-    return render(request, 'usecontrol_list.html', data)
+# def usecontrol_list(request):
+#     usecontrol = UseControl.objects.all()[0]
+#     data = {
+#         'vehicle': usecontrol.vehicle.name,
+#         'driver': usecontrol.driver.name,
+#         'date_started': usecontrol.date_started,
+#     }
+#     return render(request, 'usecontrol_list.html', data)
+
+
+class UseControlView(TemplateView):
+    template_name = 'usecontrol_list.html'
+
+    def get_context_data(self, **kwargs):
+        context = super(UseControlView, self).get_context_data(**kwargs)
+        usecontrol = UseControl.objects.all().first()
+        # import ipdb; ipdb.set_trace()
+        context['vehicle'] = usecontrol.vehicle.name
+        context['driver'] = usecontrol.driver.name
+        context['date_started'] = usecontrol.date_started
+        return context
+
+
+class VehicleRedirectView(RedirectView):
+    permanent = False
+    query_string = True
+    pattern_name = 'vehicle_detail'
+
+    # import ipdb; ipdb.set_trace()
+    def get_redirect_url(self, *args, **kwargs):
+        vehicle = get_object_or_404(Vehicle, pk=kwargs['pk'])
+        return super(VehicleRedirectView, self).get_redirect_url(*args, **kwargs)
+
+
+class VehicleDetailView(DetailView):
+    model = Vehicle
+    template_name = 'vehicle_detail.html'
+
+
+class VehicleCreate(CreateView):
+    model = Vehicle
+    success_url = reverse_lazy('vehicle_add')
+    template_name = 'vehicle_form.html'
+    fields = ['name', 'description', 'license_plate', 'vendor']
+
+
+class VehicleUpdate(UpdateView):
+    model = Vehicle
+    success_url = reverse_lazy('vehicle_add')
+    template_name = 'vehicle_form.html'
+    fields = ['name', 'description', 'license_plate', 'vendor']
+
+
+class VehicleDelete(DeleteView):
+    model = Vehicle
+    success_url = reverse_lazy('vehicle_add')
+    template_name = 'vehicle_confirm_delete.html'

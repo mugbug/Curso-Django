@@ -1,0 +1,25 @@
+dropbox: https://goo.gl/lYnrBR
+
+> start vagrant
+  $ vagrant up
+  $ vagrant ssh
+
+> ativa virtualenv
+  $ source cursoenv/bin/activate
+  $ cd /vagrant/fleet_control
+
+
+  $ python3 manage.py migrate
+
+  $ python3 manage.py runserver 0:8080
+
+> library de debug
+  $ pip3 install ipdb
+          +
+  import ipdb; ipdb.set_trace()
+
+> debugging
+  - next line
+    ipdb> n
+  - continue
+    ipdb> c
