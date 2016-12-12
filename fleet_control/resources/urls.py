@@ -3,8 +3,9 @@ from django.conf.urls import url
 from .views import *
 
 urlpatterns = [
+    # clients list
     url(r'^clients$', get_clients),
-    # list vehicles
+    # vehicles list
     url(r'^vehicles$', VehicleListView.as_view(), name='vehicle_list'),
     # temporary urls
     url(r'^usecontrol_add$', usecontrol_add),
@@ -12,9 +13,9 @@ urlpatterns = [
     # redirect views
     url(r'^validate_vehicle/(?P<pk>\d+)$', VehicleRedirectView.as_view(), \
                                                 name='vehicle_counter'),
-    url(r'^vehicle_detail/(?P<pk>\d+)/$', VehicleDetailView.as_view(), \
+    url(r'^vehicle_detail/(?P<pk>\d+)$', VehicleDetailView.as_view(), \
                                                 name='vehicle_detail'),
-    # crud views
+    # CRUD views
     url(r'^vehicle/add$', VehicleCreate.as_view(), name='vehicle_add'),
     url(r'^vehicle/(?P<pk>\d+)$', VehicleUpdate.as_view(), \
                                                 name='vehicle_update'),
