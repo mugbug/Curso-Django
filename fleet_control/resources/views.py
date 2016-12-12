@@ -117,3 +117,4 @@ class VehicleListView(ListView):
     template_name = 'vehicle_list.html'
     queryset = Vehicle.objects.order_by('name')
     context_object_name = 'vehicle_list'
+    paginate_by = 4

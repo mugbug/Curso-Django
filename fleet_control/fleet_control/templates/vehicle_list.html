@@ -2,16 +2,35 @@
 {% block title %} Detalhes do Veiculo {% endblock %}
 {% block content %}
   <h2>Lista de Veículos </h2>
-  <table>
+  <table class="table">
       <thead>
-          <tr><th>Nome</th></tr>
+          <tr>
+            <th>Nome</th>
+            <th>Placa</th>
+            <th>Ações</th>
+          </tr>
+
       </thead>
       <tbody>
           {% for vehicle in vehicle_list %}
           <tr>
-              <td>{{ vehicle.name }}</td>
               <td>
-                  <a href="{% url "vehicle_detail" vehicle.id %}">Detalhes</a>
+                <a style="text-decoration=none" href="{% url "vehicle_detail" vehicle.id %}">{{ vehicle.name }}</a>
+              </td>
+              <td>
+                {{ vehicle.license_plate }}
+              </td>
+              <td>
+                <a href="{% url "vehicle_update" vehicle.id %}">
+                  <button type="button" class="btn btn-default btn-sm">
+                    <span class="glyphicon glyphicon-pencil"></span> Editar
+                  </button>
+                </a>
+                <a href="{% url "vehicle_delete" vehicle.id %}">
+                  <button type="button" class="btn btn-default btn-sm">
+                    <span class="glyphicon glyphicon-remove"></span> Remover
+                  </button>
+                </a>
               </td>
           </tr>
           {% endfor %}
