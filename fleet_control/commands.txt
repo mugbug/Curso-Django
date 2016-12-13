@@ -18,8 +18,6 @@
 > new app
   $ python3 manage.py startapp resources
 
-  $ python3 manage.py migrate
-
   $ python3 manage.py runserver 0:8080
 
 > library de debug
@@ -46,3 +44,12 @@
 
 > shell para ensaios
   $ python3 manage.py shell
+
+> kills linux instance
+  $ sudo halt
+
+> migrações
+  $ python3 manage.py makemigrations
+  $ python3 manage.py makemigrations --empty resources
+  $ python3 manage.py showmigrations
+  $ python3 manage.py migrate

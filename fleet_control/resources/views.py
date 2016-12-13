@@ -70,9 +70,10 @@ class UseControlView(TemplateView):
     template_name = 'usecontrol_list.html'
 
     def get_context_data(self, **kwargs):
-        context = super(UseControlView, self).get_context_data(**kwargs)
-        usecontrol = UseControl.objects.all().first()
         # import ipdb; ipdb.set_trace()
+        context = super(UseControlView, self).get_context_data(**kwargs)
+        usecontrol = UseControl.objects.select_related('vehicle', 'driver')\
+                                                    .all().first()
         context['vehicle'] = usecontrol.vehicle.name
         context['driver'] = usecontrol.driver.name
         context['date_started'] = usecontrol.date_started
