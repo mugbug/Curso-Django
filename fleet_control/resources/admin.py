@@ -1,3 +1,10 @@
 from django.contrib import admin
 
-# Register your models here.
+from .models import ManagerControl, Manufacturer, \
+                Vehicle, Driver, UseControl
+
+admin.site.register(ManagerControl)
+admin.site.register(Manufacturer)
+admin.site.register(Vehicle)
+admin.site.register(Driver)
+admin.site.register(UseControl)

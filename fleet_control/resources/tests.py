@@ -2,7 +2,7 @@ from datetime import date
 
 from django.test import TestCase
 
-from .models import Vehicle, Driver, UseControl
+from .models import Vehicle, Driver, UseControl, ManagerControl
 # Create your tests here.
 
 class VehicleTest(TestCase):
@@ -43,3 +43,26 @@ class VehicleViewTests(TestCase):
     def test_vehicle_list(self):
         response = self.client.get('/resources/vehicles')
         self.assertEqual(response.status_code, 200)
+
+    def test_must_create_vehicle(self):
+        data = {
+            'name': 'Fiat Palio',
+            'description': 'Modelo Popular',
+            'description': 'GRS2577',
+            'license_plate': '2008-01-01',
+        }
+        response = self.client.post('/resources/vehicle/add', data)
+        # Check status code for redirect
+        self.assertEqual(response.status_code, 200)
+        vehicle_db = Vehicle.objects.all().first()
+        self.assertEqual(vehicle_db.id, 1) # TODO: AttributeError: 'NoneType' object has no attribute 'id'
+        self.assertEqual(vehicle_db.name, data.get('name'))
+
+
+class ManagerControlModelTest(TestCase):
+    fixtures = ['manager_fixture']
+
+    def test_manager_control_relations(self):
+        man_ctrl = ManagerControl.objects.all().first()
+        self.assertEqual(man_ctrl.user.id, 1)
+        self.assertEqual(man_ctrl.user.username, 'joao')

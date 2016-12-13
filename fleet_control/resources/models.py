@@ -22,7 +22,7 @@ class Manufacturer(models.Model):
 
 
 class Vehicle(models.Model):
-    name = models.CharField(max_length=30)
+    name = models.CharField(verbose_name='Nome', max_length=30) # verbose_name: label no admin
     description = models.TextField(null=True, blank=True)
     vendor = models.IntegerField(null=True)
     license_plate = models.CharField(max_length=7, default='')
@@ -31,6 +31,11 @@ class Vehicle(models.Model):
 
     manufacturer = models.ForeignKey('Manufacturer', null=True)
     usecontrols = models.ManyToManyField(Driver, through='UseControl')
+
+    # just like toString
+    def __str__(self):
+        # return self.name
+        return '{0} - {1}'.format(self.name, self.license_plate)
 
 class ManagerControl(models.Model):
     user = models.OneToOneField(settings.AUTH_USER_MODEL, primary_key=True)
