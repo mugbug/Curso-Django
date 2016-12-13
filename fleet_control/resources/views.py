@@ -1,3 +1,5 @@
+from datetime import date
+
 from django.shortcuts import render
 from django.http import HttpResponse
 from django.views.generic.base import TemplateView, RedirectView
@@ -119,9 +121,17 @@ class VehicleDelete(DeleteView):
 
 
 class VehicleListView(ListView):
-    
+
     model = Vehicle
     template_name = 'vehicle_list.html'
-    queryset = Vehicle.objects.order_by('name')
+    # queryset = Vehicle.objects.order_by('name')
     context_object_name = 'vehicle_list'
     paginate_by = 4
+
+    def get_queryset(self):
+
+        dict_params = self.request.GET
+        qs = Vehicle.objects.filter(is_active=True)
+        qs = qs.filter(manufacture_year__gt=date(2012,1,1))
+        qs = qs.order_by('-license_plate')
+        return qs

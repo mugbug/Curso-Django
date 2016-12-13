@@ -11,7 +11,7 @@ def contact(request):
     if request.method == 'POST':
         form = ContactForm(request.POST)
         if form.is_valid():
-            import ipdb; ipdb.set_trace()
+            # import ipdb; ipdb.set_trace()
             # Processa dados no form.cleaned_data
             subject = form.cleaned_data['subject']
             message = form.cleaned_data['message']
@@ -27,6 +27,6 @@ def contact(request):
 
     return render_to_response('contact.html', {'form': form,}, \
                                                 RequestContext(request))
-
 def thanks(request):
+
     return render_to_response('thanks.html', RequestContext(request))

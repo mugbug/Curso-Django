@@ -1,6 +1,8 @@
-dropbox: https://goo.gl/lYnrBR
-django cms
-
+## dropbox: https://goo.gl/lYnrBR
+## http://sqlitestudio.pl/?act=download
+## http://michal.karzynski.pl/blog/2013/06/09/django-nginx-gunicorn-virtualenv-supervisor/
+## django cms
+############################################
 > start vagrant
   $ vagrant up
   $ vagrant ssh
@@ -37,3 +39,10 @@ django cms
 
 > admin
   $ python3 manage.py createsuperuser
+
+> mysql
+  $ pip3 install mysqlclient
+  $ mysql -u username -ppassword
+
+> shell para ensaios
+  $ python3 manage.py shell
