@@ -13,6 +13,8 @@ django cms
   $ source cursoenv/bin/activate
   $ cd /vagrant/fleet_control
 
+> new app
+  $ python3 manage.py startapp resources
 
   $ python3 manage.py migrate
 
